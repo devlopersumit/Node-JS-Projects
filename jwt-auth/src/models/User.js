@@ -1,4 +1,4 @@
-const moongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: true,
-        minlength: 8
+        required: true
     }
 });
 

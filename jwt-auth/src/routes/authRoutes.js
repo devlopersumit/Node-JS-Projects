@@ -37,11 +37,18 @@ router.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
         // Create and sign JWT token
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.cookie(token, {httpOnly:true});
         res.json({message: 'Login successful', token });
     } catch (err) {
         res.status(500).json({ msg: 'Server Error' });
         console.error(err);
     }
+});
+
+//LOGOUT
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.json({ msg: 'Logged out successfully' });
 });
 
 //VERIFY TOKEN PROTECTED ROUTES
